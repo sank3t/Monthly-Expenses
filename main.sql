@@ -37,7 +37,8 @@ WITH persons AS (
 SELECT
   *,
   MD5(p_name) AS hashed_name
-FROM persons
+FROM
+ persons
 WHERE
   p_name <> '';
 
