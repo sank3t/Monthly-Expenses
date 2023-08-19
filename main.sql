@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS mnthly_expenses_qa AS
 WITH split_expense_person AS (
   SELECT
     *,
-    SPLIT_PART(spent_on, '(', 1) AS expense,
+    TRIM(BOTH FROM SPLIT_PART(spent_on, '(', 1)) AS expense,
     REPLACE(SPLIT_PART(spent_on, '(', 2), ')', '') AS p_name
   FROM
     mnthly_expenses
@@ -81,7 +81,6 @@ SET
   updated_hash = NULL
 WHERE
   hashed_name = '9dda562283504ee64e8c9cb003729371';
-
 
 
 UPDATE mnthly_expenses_qa
