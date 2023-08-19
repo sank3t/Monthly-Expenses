@@ -1,4 +1,5 @@
 -- 1. Raw table DDL
+
 CREATE TABLE mnthly_expenses_raw (
   year_month VARCHAR,
   month_name VARCHAR,
@@ -10,6 +11,7 @@ CREATE TABLE mnthly_expenses_raw (
 
 
 -- 2. Preparing monthly expenses
+
 CREATE TABLE IF NOT EXISTS mnthly_expenses AS
 
 SELECT
@@ -20,3 +22,21 @@ SELECT
   CAST(REPLACE(SUBSTR(amount, 3), ',', '') AS FLOAT) AS amount
 FROM
   mnthly_expenses_raw;
+
+
+-- 3. Creating hash table of names
+
+CREATE TABLE IF NOT EXISTS hash_person_names AS
+
+WITH persons AS (
+  SELECT DISTINCT
+    REPLACE(SPLIT_PART(spent_on, '(', 2), ')', '') AS p_name
+  FROM
+    mnthly_expenses
+)
+SELECT
+  *,
+  MD5(p_name) AS hashed_name
+FROM persons
+WHERE
+  p_name <> '';
