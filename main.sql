@@ -56,7 +56,8 @@ WITH split_expense_person AS (
 )
 SELECT
   t1.*,
-  t2.hashed_name
+  t2.hashed_name,
+  t2.hashed_name AS updated_hash
 FROM
   split_expense_person t1
 LEFT JOIN hash_person_names t2
