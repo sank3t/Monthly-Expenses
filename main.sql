@@ -132,3 +132,46 @@ SET
   p_name = 'Parents'
 WHERE
   hashed_name = 'e92e9f7025034e63775e80933b431da4';
+
+
+-- 5.2 Fixing expense category and expense
+
+UPDATE mnthly_expenses_qa
+SET
+  expense = 'Hair Cut',
+  p_name = (
+    SELECT p_name
+    FROM hash_person_names
+    WHERE hashed_name = '71f29ad85c3f0c7068e9904908cb2470'
+  ),
+  updated_hash = '71f29ad85c3f0c7068e9904908cb2470',
+  expense_category = 'Personal Grooming'
+WHERE
+  expense IN ('Barber', 'Haircut', 'Hair Cut');
+
+
+UPDATE mnthly_expenses_qa
+SET
+  expense = 'Doctor Consulting Fee'
+WHERE
+  expense = 'Doctor Consulting Fees';
+
+
+UPDATE mnthly_expenses_qa
+SET
+  p_name = (
+    SELECT p_name
+    FROM hash_person_names
+    WHERE hashed_name = 'e67b4ca0b1c509937e0affe401d87f63'
+  ),
+  updated_hash = 'e67b4ca0b1c509937e0affe401d87f63'
+WHERE expense_date < '2023-01-31'
+  AND expense = 'Doctor Consulting Fee';
+
+
+UPDATE mnthly_expenses_qa
+SET
+  expense = 'Air Pressure'
+WHERE
+  expense = 'Tyre Pressure';
+
