@@ -40,3 +40,24 @@ SELECT
 FROM persons
 WHERE
   p_name <> '';
+
+
+-- 4. Creating qa table of monthly expenses for doing data cleaning
+
+CREATE TABLE IF NOT EXISTS mnthly_expenses_qa AS
+
+WITH split_expense_person AS (
+  SELECT
+    *,
+    SPLIT_PART(spent_on, '(', 1) AS expense,
+    REPLACE(SPLIT_PART(spent_on, '(', 2), ')', '') AS p_name
+  FROM
+    mnthly_expenses
+)
+SELECT
+  t1.*,
+  t2.hashed_name
+FROM
+  split_expense_person t1
+LEFT JOIN hash_person_names t2
+  ON t1.p_name = t2.p_name;
