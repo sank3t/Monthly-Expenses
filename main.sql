@@ -175,3 +175,17 @@ SET
 WHERE
   expense = 'Tyre Pressure';
 
+
+-- 6. Creating prod table for analyzing the expenses
+
+CREATE TABLE IF NOT EXISTS mnthly_expenses_prod AS
+
+SELECT
+  year_month,
+  expense_date,
+  expense_category,
+  expense,
+  amount,
+  updated_hash AS hashed_name_prod
+FROM
+  mnthly_expenses_qa;
