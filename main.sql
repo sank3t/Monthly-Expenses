@@ -6,7 +6,8 @@ CREATE TABLE mnthly_expenses_raw (
   expense_date VARCHAR,
   expense_category VARCHAR,
   spent_on VARCHAR,
-  amount VARCHAR
+  amount VARCHAR,
+  payment_mode VARCHAR
 );
 
 
