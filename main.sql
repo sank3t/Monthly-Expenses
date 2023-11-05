@@ -51,7 +51,9 @@ WHERE
 
 -- 4. Creating qa table of monthly expenses for doing data cleaning
 
-CREATE TABLE IF NOT EXISTS mnthly_expenses_qa AS
+DROP TABLE IF EXISTS mnthly_expenses_qa;
+
+CREATE TABLE mnthly_expenses_qa AS
 
 WITH split_expense_person AS (
   SELECT
