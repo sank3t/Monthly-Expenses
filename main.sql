@@ -30,7 +30,9 @@ FROM
 
 -- 3. Creating hash table of names
 
-CREATE TABLE IF NOT EXISTS hash_person_names AS
+DROP TABLE IF EXISTS hash_person_names;
+
+CREATE TABLE hash_person_names AS
 
 WITH persons AS (
   SELECT DISTINCT
